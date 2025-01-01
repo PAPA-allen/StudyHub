@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import "dotenv/config";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import {ErrorMiddleware} from "./middleware/ErrorMiddleware";
 //body parser
 const app = express();
 
@@ -17,6 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 //cookie parser
 app.use(cookieParser());
 
+//error middleware
+app.use(ErrorMiddleware);
 
 //testing api
 app.get("/", (req:Request, res:Response) => {

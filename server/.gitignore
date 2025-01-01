@@ -1,2 +1,32 @@
+# Node.js modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Environment files
 .env
-node_modules */
+
+# Build and output directories
+/dist
+/build
+/public
+
+# Dependency directories
+bower_components/
+
+# Mac system files
+.DS_Store
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Test coverage output
+coverage/
+
+# npm logs
+npm-debug.log*
