@@ -2,7 +2,9 @@ import express, { NextFunction, Request, Response } from "express";
 import "dotenv/config";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import {ErrorMiddleware} from "./middleware/ErrorMiddleware";
+import { ErrorMiddleware } from "./middleware/ErrorMiddleware";
+import userRouter from "./routes/user.route";
+
 //body parser
 const app = express();
 
@@ -17,16 +19,16 @@ app.use(express.urlencoded({ extended: true }));
 //cookie parser
 app.use(cookieParser());
 
-//error middleware
-app.use(ErrorMiddleware);
 
-//testing api
-app.get("/", (req:Request, res:Response) => {
-    res.status(200).json({
-        message: "Hello World",
-        success: true,
-    })
-});
+// //testing api
+// app.get("/", (req:Request, res:Response) => {
+//     res.status(200).json({
+//         message: "Hello World",
+//         success: true,
+//     })
+// });
+//routes
+app.use("/api/v1/", userRouter);
 
 //unknown route
 app.all("*", (req: Request, res: Response, next:NextFunction) => { 
@@ -34,5 +36,10 @@ app.all("*", (req: Request, res: Response, next:NextFunction) => {
     error.statusCode = 404;
     next(error)
 })
+
+//error middleware
+app.use(ErrorMiddleware);
+
+
 
 export default app;

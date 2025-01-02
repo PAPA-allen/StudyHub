@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub Activation Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .email-header {
+            background-color: #3498db;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .email-header img {
+            max-width: 150px;
+            margin-bottom: 15px;
+        }
+        .email-body {
+            padding: 20px;
+            color: #333333;
+        }
+        .email-body h2 {
+            color: #2c3e50;
+            font-size: 24px;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .footer {
+            background-color: #ecf0f1;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Welcome to StudyHub</h1>
+        </div>
+
+        <div class="email-body">
+            <h2>Activate Your Account</h2>
+            <p>Hello, <strong><%= user.name %></strong></p>
+            <p>Thank you for signing up with StudyHub. To complete your registration, please verify with the code below.</p>
+            <p style="text-align: center;">
+                <h2><%=activationCode %></h2>
+            </p>
+
+            <p>If you did not sign up for this account, please ignore this email.</p>
+
+            <p>Best regards,<br>Arcnile Team</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; <%= year %> studyhub. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
