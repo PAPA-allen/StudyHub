@@ -1,5 +1,6 @@
 import express from "express";
-import { activateUser, loginUser, registerUser } from "../controllers/user.controller";
+import { activateUser, loginUser, logoutUser, registerUser } from "../controllers/user.controller";
+import { isAuthenticated } from '../middleware/auth';
 
 const userRouter = express.Router();
 
@@ -12,5 +13,10 @@ userRouter.post("/activate-user", activateUser);
 
 //login
 userRouter.post("/login", loginUser);
+
+//logout
+userRouter.get("/logout", isAuthenticated, logoutUser);
+
+
 
 export default userRouter;
