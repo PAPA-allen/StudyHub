@@ -4,7 +4,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { ErrorMiddleware } from "./middleware/ErrorMiddleware";
 import userRouter from "./routes/user.route";
-import {courseRouter} from "./routes/course.route";
+import { courseRouter } from "./routes/course.route";
+import orderRouter from "./routes/order.route";
 
 //body parser
 const app = express();
@@ -29,7 +30,7 @@ app.use(cookieParser());
 //     })
 // });
 //routes
-app.use("/api/v1/", userRouter, courseRouter);
+app.use("/api/v1/", userRouter, courseRouter, orderRouter);
 
 //unknown route
 app.all("*", (req: Request, res: Response, next:NextFunction) => { 
