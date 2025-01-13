@@ -244,8 +244,8 @@ export const addAnswer = CatchAsyncError(
         return next(new ErrorHandler("Invalid content id", 400));
       }
 
-      const question = courseContent?.questions?.find((item: any) =>
-        item._id.equals(questionId)
+        const question = courseContent?.questions?.find((item: any) =>
+            item._id.equals(questionId)
       );
 
       if (!question) {
@@ -411,7 +411,7 @@ export const addReplyToReview = CatchAsyncError(
 );
 
 
-//get all coursess --only foe admin
+//get all coursess --only for admin
 export const getAllUsers = CatchAsyncError(async(req:Request, res:Response, next:NextFunction)=>{
   try {
     getAllCoursesService(res);
