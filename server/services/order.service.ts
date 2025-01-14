@@ -13,7 +13,7 @@ export const newOrder = CatchAsyncError(async (data: any, res: Response) => {
   });
 });
 
-//Get all Orders
+//Get all Orders --only for admin 
 export const getAllOrdersService = async (res: Response) => {
   const orders = await OrderModel.find().sort({ createdAt: 1 });
 

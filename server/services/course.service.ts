@@ -12,7 +12,7 @@ export const createCourse = CatchAsyncError(async(data:any, res:Response)=>{
 })
 
 
-//Get all courses
+//Get all courses --only for admin
 export const getAllCoursesService = async(res:Response)=>{
     const courses = await CourseModel.find().sort({createdAt:1})
 
