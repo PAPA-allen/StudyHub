@@ -5,6 +5,8 @@ import { ModeToggle } from '../utils/mode-toggle';
 import { Menu, User } from 'lucide-react';
 import { Modal } from './Modal';
 import { LoginForm } from './Auth/Login';
+import { SignUpForm } from './Auth/SignUp';
+import Verification from './Auth/Verification';
 
 
 interface Props {
@@ -12,7 +14,7 @@ interface Props {
     open: boolean;
     setOpen: (open: boolean) => void;
     route: string;
-    setRoute: (route:string)=>void;
+    setRoute: (route: string) => void;
 }
 
 const Header: FC<Props> = ({ activeItem, setOpen, open, route, setRoute }) => {
@@ -73,20 +75,20 @@ const Header: FC<Props> = ({ activeItem, setOpen, open, route, setRoute }) => {
                             <div className="w-[60%] fixed z-[999999999] h-screen bg-white dark:bg-gray-900 top-0 right-0">
                                 <NavLink isMobile={true} activeItem={activeItem} />
                                 <div className="px-4">
-                                <User className="cursor-pointer"
-                                size={25}
-                                onClick={() => setOpen(true)}
+                                    <User className="cursor-pointer"
+                                        size={25}
+                                        onClick={() => setOpen(true)}
                                     />
                                     <br />
-                                    <br/>
+                                    <br />
                                     <br />
                                     <p>copyright &copy; {currentYear} studyhub</p>
                                 </div>
-                           </div>
+                            </div>
                         </div>
                     )
                 }
-                
+
                 {
                     route === "Login" && (
                         <>
@@ -97,10 +99,41 @@ const Header: FC<Props> = ({ activeItem, setOpen, open, route, setRoute }) => {
                                     activeItem={activeItem}
                                     setRoute={setRoute}
                                     component={LoginForm}
-                                     />
+                                />
                             )}
                         </>
-                   )
+                    )
+                }
+
+                {
+                    route === "sign-up" && (
+                        <>
+                            {open && (
+                                <Modal
+                                    open={open}
+                                    setOpen={setOpen}
+                                    activeItem={activeItem}
+                                    setRoute={setRoute}
+                                    component={SignUpForm}
+                                />
+                            )}
+                        </>
+                    )
+                }
+                    {
+                    route === "Verification" && (
+                        <>
+                            {open && (
+                                <Modal
+                                    open={open}
+                                    setOpen={setOpen}
+                                    activeItem={activeItem}
+                                    setRoute={setRoute}
+                                    component={Verification}
+                                />
+                            )}
+                        </>
+                    )
                 }
             </div>
         </header>
