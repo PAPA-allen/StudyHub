@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
+import {signIn} from "next-auth/react";
 
 type Props = {
     setRoute: (route: string) => void;
@@ -34,7 +35,6 @@ export const LoginForm: FC<Props> = ({setRoute, setOpen}) => {
         if (isSuccess) {
             toast.success("Login successful");
             setOpen(false)
-            setRoute("Verification")
         } 
         if (error) {
             if ("data" in error) {
@@ -99,7 +99,7 @@ export const LoginForm: FC<Props> = ({setRoute, setOpen}) => {
                 <h5 className=" text-center text-[14px] mt-3">
                         or
                     </h5>
-                    <div className="flex items-center justify-center my-3 border p-2 cursor-pointer rounded-md hover:bg-black hover:text-white">
+                    <div className="flex items-center justify-center my-3 border p-2 cursor-pointer rounded-md hover:bg-black hover:text-white ml-auto mr-auto" onClick={()=>signIn("google")}>
                         <FcGoogle className=" mr-2" />
                         <p>Sign in with google</p>
                     </div>
