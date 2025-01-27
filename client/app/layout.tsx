@@ -54,28 +54,26 @@ export default function RootLayout({
             </ThemeProvider>
             </SessionProvider>
         </AppProviders>
-     
       </body>
     </html>
   );
 }
 
 
-const Custom:React.FC<{children:React.ReactNode}> = ({ children }) => {
+const Custom: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isLoading } = useLoadUserQuery({});
   const [isMounted, setIsMounted] = useState(false);
-
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) {
-    return null;
+  if (!isMounted || isLoading) {
+    return (
+      <div >
+        <Loader />
+      </div>
+    );
   }
 
-  return (
-    <>
-      {isLoading ? <div className="h-screen w-screen flex justify-center items-center animate-spin"><Loader/></div> : <>{children}</>}
-    </>
-  )
- }
+  return <>{children}</>;
+};

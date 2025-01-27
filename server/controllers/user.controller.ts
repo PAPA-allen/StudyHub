@@ -293,13 +293,13 @@ export const updateUserInfo = CatchAsyncError(async (req: Request, res: Response
         const userId = req.user?._id as string;
         const user = await userModel.findById(userId);
 
-        if (email && user) {
-            const isEmailExist = await userModel.findOne({ email });
-            if (isEmailExist) {
-                return next(new ErrorHandler("Email already exists", 400));
-            }
-            user.email = email;
-        }
+        // if (email && user) {
+        //     const isEmailExist = await userModel.findOne({ email });
+        //     if (isEmailExist) {
+        //         return next(new ErrorHandler("Email already exists", 400));
+        //     }
+        //     user.email = email;
+        // }
         if (user && name) {
             user.name = name;
         }
@@ -321,15 +321,15 @@ export const updateUserInfo = CatchAsyncError(async (req: Request, res: Response
 
 //update password
 interface IUpdatePasswordBody { 
-    currentPassword: string;
+    oldPassword: string;
     newPassword: string;
 }
 
 export const updatePassword = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { currentPassword, newPassword } = req.body as IUpdatePasswordBody;
+        const { oldPassword, newPassword } = req.body as IUpdatePasswordBody;
 
-        if (!currentPassword || !newPassword) {
+        if (!oldPassword || !newPassword) {
             return next(new ErrorHandler("Please enter current and new password", 400));
         }
         
@@ -339,7 +339,7 @@ export const updatePassword = CatchAsyncError(async (req: Request, res: Response
             return next(new ErrorHandler("invalid user", 400));
         }
         
-        const isPasswordMatch = await user?.comparePassword(currentPassword);
+        const isPasswordMatch = await user?.comparePassword(oldPassword);
 
         if (!isPasswordMatch) {
             return next(new ErrorHandler("Invalid old password", 400));

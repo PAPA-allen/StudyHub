@@ -4,6 +4,8 @@ import Default from "../../components/images/user.png"
 import { TbPasswordUser } from "react-icons/tb";
 import { FaBookReader } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
+import { GrUserAdmin } from "react-icons/gr";
+import Link from 'next/link';
 
 type Props = {
     user: any;
@@ -34,7 +36,16 @@ const SidebarProfile: FC<Props> = ({ user, avatar, active, logoutHandler, setAct
               <FaBookReader  size={20} />
               <h5 className="pl-2 md:block hidden">Enrolled Courses</h5>
           </div>
-          <div className={`w-full flex items-center px-3 py-4 cursor-pointer shadow-md ${active === 4 ? "bg-gray-200 dark:bg-blue-950" : "transparent"}`} onClick={()=>logoutHandler()}>
+          {
+              user.role === "admin" && (
+                <Link className={`w-full flex items-center px-3 py-4 cursor-pointer shadow-md ${active === 4 ? "bg-gray-200 dark:bg-blue-950" : "transparent"}`}href={"/admin"}>
+                <GrUserAdmin  size={20} />
+                <h5 className="pl-2 md:block hidden">Admin Dashboard</h5>
+            </Link>
+              )
+          }
+      
+          <div className={`w-full flex items-center px-3 py-4 cursor-pointer shadow-md ${active === 5 ? "bg-gray-200 dark:bg-blue-950" : "transparent"}`} onClick={()=>logoutHandler()}>
               <IoIosLogOut  size={20} />
               <h5 className="pl-2 md:block hidden">Log Out</h5>
           </div>

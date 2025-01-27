@@ -12,7 +12,7 @@ const Lading = () => {
 
     return (
         <motion.div
-            className="mt-[100px] max-w-7xl mx-auto md:py-10"
+            className="mt-[30px] max-w-7xl mx-auto md:py-10"
             initial={{ opacity: 0, y: 50 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1 }}

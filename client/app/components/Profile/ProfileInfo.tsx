@@ -5,7 +5,7 @@ import { CiCamera } from "react-icons/ci";
 import { useActivationMutation } from '@/redux/features/auth/authApi';
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
 import { toast } from 'sonner';
-import { useUpdateAvatarMutation } from '@/redux/features/user/userApi';
+import { useEditProfileMutation, useUpdateAvatarMutation } from '@/redux/features/user/userApi';
 
 type Props = {
     avatar: string | null;
@@ -14,7 +14,8 @@ type Props = {
 
 const ProfileInfo: FC<Props> = ({ avatar, user }) => {
     const [name, setName] = useState(user && user.name);
-    const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation()
+    const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
+    const [editProfile, {isSuccess:success,error:updateError}]=useEditProfileMutation()
     const [loadUser, setLoadUser]=useState(false)
     const { } = useLoadUserQuery(undefined, {skip:!loadUser?true:false})
     const imageHandler = async (e: any) => {
@@ -31,8 +32,8 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
         };
         fileReader.readAsDataURL(e.target.files[0])
     };
-    useEffect(() => { 
-        if (isSuccess) {
+    useEffect(() => {
+        if (isSuccess || success) {
             setLoadUser(true)
             toast.success("Profile updated successfully")
         }
@@ -42,12 +43,22 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
                 toast.error(errorData?.data?.message) || "An error occurred";
             }
         }
-    },[isSuccess])
+        if (updateError) {
+            if ("data" in updateError) {
+                const errorData = updateError as any;
+                toast.error(errorData?.data?.message) || "An error occurred";
+            }
+        }
+    },[isSuccess, error, success, updateError])
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        // Handle form submission
-        console.log("Profile updated");
+        if (name !== "") {
+           await editProfile({
+                name:name,
+                email:user.email
+            })
+        }
     };
 
     return (
