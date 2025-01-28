@@ -78,7 +78,7 @@ export default function Page() {
       <SidebarInset>
         {/* Sticky Header */}
         <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b px-4 backdrop-blur">
-          {/* <SidebarTrigger className="-ml-1" /> */}
+        <SidebarTrigger className="-ml-1 hidden md:flex" />
 
           <div className="flex relative ml-auto">
             <div>
