@@ -1,11 +1,13 @@
 import React, { FC, useState } from 'react'
 import CourseInformation from './CourseInformation';
 import CourseOptions from './CourseOptions';
+import CourseData from './CourseData';
+import CourseContent from './courseContent';
 
 type Props = {}
 
 const CreateCourse: FC<Props> = () => {
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(2);
     const [courseInfo, setCourseInfo] = useState({
         name: "",
         description: "",
@@ -17,7 +19,7 @@ const CreateCourse: FC<Props> = () => {
         thumbnail:"",
     })
     const [benefits, setBenefits] = useState([{ title: "" }]);
-    const [prerequisities, setPrerequisities] = useState([{ title: "" }]);
+    const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
     const [courseContentData, setCourseContentData] = useState([
         {
             videoUrl: "",
@@ -34,6 +36,10 @@ const CreateCourse: FC<Props> = () => {
         },
     ]);
     const [courseData, setCourseData] = useState({});
+
+    const handleSubmit = async() => {
+        
+    }
   return (
       <div className="w-full flex min-h-screen">
           <div className="w-[80%]">
@@ -44,6 +50,29 @@ const CreateCourse: FC<Props> = () => {
                           setCourseInfo={setCourseInfo}
                           active={active}
                           setActive={setActive} />
+                  )
+              }
+                 {
+                  active === 1 && (
+                      <CourseData
+                          benefits={benefits}
+                          setBenefits={setBenefits}
+                          prerequisites={prerequisites}
+                          setPrerequisites={ setPrerequisites}
+                          active={active}
+                          setActive={setActive} />
+                  )
+              }
+                    {
+                  active === 2 && (
+                      <CourseContent
+                          active={active}
+                          setActive={setActive}
+                          courseContentData={courseContentData}
+                          setCourseContentData={setCourseContentData}
+                          handleSubmit={handleSubmit}
+                      />
+
                   )
               }
           </div>
