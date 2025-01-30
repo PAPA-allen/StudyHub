@@ -3,11 +3,12 @@ import CourseInformation from './CourseInformation';
 import CourseOptions from './CourseOptions';
 import CourseData from './CourseData';
 import CourseContent from './courseContent';
+import CoursePreview from './coursePreview';
 
 type Props = {}
 
 const CreateCourse: FC<Props> = () => {
-    const [active, setActive] = useState(2);
+    const [active, setActive] = useState(0);
     const [courseInfo, setCourseInfo] = useState({
         name: "",
         description: "",
@@ -37,8 +38,48 @@ const CreateCourse: FC<Props> = () => {
     ]);
     const [courseData, setCourseData] = useState({});
 
-    const handleSubmit = async() => {
-        
+    const handleSubmit = async () => {
+        //Format benefits array
+        const formattedBenefits = benefits.map((benefits) => ({ title: benefits.title }))
+
+              
+        //formet prerequisites array
+        const formattedPrereuisites = prerequisites.map((prerequisite) => ({ title: prerequisite.title }));
+
+
+        //format course content array
+        const formattedCourseContentData = courseContentData.map((CourseContent) => ({
+            videoUrl: CourseContent.videoUrl,
+            title: CourseContent.title,
+            description: CourseContent.description,
+            videoSection: CourseContent.videoSection,
+            links: CourseContent.links.map((link) => ({
+                title: link.title,
+                url:link.url,
+            })),
+            suggestion:CourseContent.suggestion
+        }))
+        //prepare data object
+        const data = {
+            name: courseInfo.name,
+            description: courseInfo.description,
+            price: courseInfo.price,
+            estimatedPrice: courseInfo.estimatedPrice,
+            tags: courseInfo.tags,
+            thumbnail: courseInfo.thumbnail,
+            level: courseInfo.level,
+            demoUrl: courseInfo.demoUrl,
+            totalVideos: courseContentData.length,
+            benefits: formattedBenefits,
+            prerequisites: formattedBenefits,
+            courseContent: formattedCourseContentData,
+        };
+        setCourseData(data);
+
+    }
+
+    const handleCourseCreate = async (e: any) => {
+        const data = courseData;
     }
   return (
       <div className="w-full flex min-h-screen">
@@ -74,10 +115,19 @@ const CreateCourse: FC<Props> = () => {
                       />
 
                   )
+              },
+                    {
+                  active === 3 && (
+                      <CoursePreview
+                          active={active} setActive={setActive}
+                          courseData={courseData}
+                          handleCourseCreate={handleCourseCreate} />
+                  )
               }
           </div>
           <div className="w-[20%] mt-[100px] h-screen fixed z-[1] top-18 right-0">
-              <CourseOptions active={active} setActive={setActive} />
+              <CourseOptions active={active} setActive={setActive}
+              />
               
           </div>
       </div>
