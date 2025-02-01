@@ -24,13 +24,17 @@ export const apiSlice = createApi({
             async onQueryStarted(args, { queryFulfilled, dispatch }) { 
                 try {
                     const result = await queryFulfilled;
+                    console.log('Query result:', result); // Check the structure of the result
                     dispatch(userLoggedIn({
                         accessToken: result.data.accessToken,
                         user: result.data.user,
                     }));
-                } catch (error:any) {
-                    console.log(error);
-                }
+                 } catch (error: any) {
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.log('Error during query fulfillment:', error);
+                    }
+                 }
+                 
             }
         })
     }),

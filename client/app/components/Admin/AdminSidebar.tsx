@@ -27,9 +27,14 @@ const data = {
       url: "/admin",
       items: [
         {
+          title: "Go Back",
+          url: "/profile",
+        },
+        {
           title: "Dashboard",
           url: "/admin",
         },
+       
       ],
     },
     {
@@ -165,7 +170,7 @@ const AdminSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
               <div className="ml-auto mr-auto">
               <Image
                 alt="profile-user"
-                src={user.avatar ? user.avatar.url : Default}
+                src={user?.avatar ? user?.avatar.url : Default}
                 height={50}
                 width={50}
                 style={{
@@ -224,7 +229,7 @@ const AdminSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
             <div className="flex items-center justify-center">
               <Image
                 alt="profile-user"
-                src={user.avatar ? user.avatar.url : Default}
+                src={user?.avatar ? user?.avatar.url : Default}
                 height={100}
                 width={100}
                 style={{

@@ -109,13 +109,13 @@ const CourseContent: FC<Props> = ({ active, setActive, courseContentData, setCou
                 {courseContentData?.map((item: any, index: number) => {
                     const showSectionInput = index === 0 || item.videoSection !== courseContentData[index - 1].videoSection;
                     return (
-                        <div className={`w-full bg-[#cdc8c817] p-4 ${showSectionInput ? "mt-10" : "mb-0"}`} key={item.videoSection || index}> {/* Use a unique key */}
+                        <div className={`w-full bg-[#cdc8c817] p-4 ${showSectionInput ? "mt-10" : "mb-0"}`} key={index}> 
                             {showSectionInput && (
                                 <>
                                     <div className="flex w-full items-center">
                                         <input
                                             type="text"
-                                            className={`text-[20px] ${item.videoSection === "Untitled Section" ? "w-[170px]" : "w-min"} cursor-pointer bg-transparent outline-none`}
+                                            className={`text-[15px] ${item.videoSection === "Untitled Section" ? "w-[170px]" : "w-min"} cursor-pointer bg-transparent outline-none`}
                                             value={item.videoSection}
                                             onChange={(e) => {
                                                 const updatedData = [...courseContentData];
@@ -123,7 +123,7 @@ const CourseContent: FC<Props> = ({ active, setActive, courseContentData, setCou
                                                 setCourseContentData(updatedData);
                                             }}
                                         />
-                                        <Pencil className="cursor-pointer" />
+                                        <Pencil className="cursor-pointer" size={15} />
                                     </div>
                                     <br />
                                 </>

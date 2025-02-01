@@ -1,13 +1,30 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import CourseInformation from './CourseInformation';
 import CourseOptions from './CourseOptions';
 import CourseData from './CourseData';
 import CourseContent from './courseContent';
 import CoursePreview from './coursePreview';
+import { useCreateCourseMutation } from '@/redux/features/courses/courseApi';
+import { toast } from 'sonner';
+import { redirect } from 'next/navigation';
 
 type Props = {}
 
 const CreateCourse: FC<Props> = () => {
+    const [createCourse, { isLoading, isSuccess, error }] = useCreateCourseMutation();
+    
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Course created Successsfully");
+            redirect("/admin/all-courses")
+        }
+        if (error) {
+            if ("data" in error) {
+                const errorData = error as any;
+                toast.error(errorData?.data.message)
+            }
+        }
+    },[isLoading, isSuccess, error])
     const [active, setActive] = useState(0);
     const [courseInfo, setCourseInfo] = useState({
         name: "",
@@ -80,6 +97,11 @@ const CreateCourse: FC<Props> = () => {
 
     const handleCourseCreate = async (e: any) => {
         const data = courseData;
+
+        if (!isLoading) {
+            await createCourse(data);
+        }
+       
     }
   return (
       <div className="w-full  md:flex min-h-screen">

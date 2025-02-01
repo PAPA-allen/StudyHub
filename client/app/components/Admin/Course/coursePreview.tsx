@@ -117,7 +117,7 @@ const coursePreview: FC<Props> = ({ active, setActive, courseData, handleCourseC
   </button>
   
   <button className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out" onClick={ ()=>createCourse()}>
-    Next
+   Create
   </button>
 </div>
 

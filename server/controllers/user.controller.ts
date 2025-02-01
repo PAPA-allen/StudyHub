@@ -180,10 +180,8 @@ export const logoutUser = CatchAsyncError(
 
       redis.del(userId);
 
-      res.status(200).json({
-        success: true,
-        message: "Logged out successfully",
-      });
+      next();
+      
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
@@ -235,10 +233,14 @@ export const updateAccessToken = CatchAsyncError(
 
       await redis.set(user._id, JSON.stringify(user), "EX", 604800) //7 days
 
-      res.status(200).json({
-        status: "success",
-        accessToken,
-      });
+      // res.status(200).json({
+      //   status: "success",
+      //   accessToken,
+      // });
+
+      {/* we use the next when we add the updateAccesstoken to refresh first */}
+      next();
+      
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
@@ -425,17 +427,25 @@ export const getAllUsers = CatchAsyncError(
   }
 );
 
-//pdate user role --only for admin
 export const updateUserRole = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id, role } = req.body;
-      updateUserRoleService(res, id, role);
+      const { email, role } = req.body; // Expecting email and role in the request body
+
+      // Check if both email and role are provided
+      if (!email || !role) {
+        return next(new ErrorHandler('Email and role are required', 400));
+      }
+
+      // Call the updateUserRoleService with email instead of ID
+      await updateUserRoleService(res, email, role); // Pass email and role to the service
+
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500)); // Handle server error
     }
   }
 );
+
 
 //Delete user --only for admin
 export const deleteUser = CatchAsyncError(

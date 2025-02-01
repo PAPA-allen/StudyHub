@@ -12,7 +12,7 @@ import { createCourse, getAllCoursesService } from "../services/course.service";
 import NotificationModel from "../models/notification.model";
 import axios from "axios";
 
-//upload cource
+//upload course
 export const uploadCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -104,23 +104,23 @@ export const getSingleCourse = CatchAsyncError(
   }
 );
 
-// get all courses without puchasing
+// get all courses without purchasing
 export const getAllCourses = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const isCacheExist = await redis.get("allCourses");
-      if (isCacheExist) {
-        const courses = JSON.parse(isCacheExist);
-        res.status(200).json({
-          success: true,
-          courses,
-        });
-      }
+      // const isCacheExist = await redis.get("allCourses");
+      // if (isCacheExist) {
+      //   const courses = JSON.parse(isCacheExist);
+      //   res.status(200).json({
+      //     success: true,
+      //     courses,
+      //   });
+      // }
       const courses = await CourseModel.find().select(
         "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
       );
 
-      await redis.set("allCourses", JSON.stringify(courses));
+      // await redis.set("allCourses", JSON.stringify(courses));
       res.status(200).json({
         success: true,
         courses,

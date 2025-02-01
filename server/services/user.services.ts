@@ -17,7 +17,7 @@ export const getUserById = async (id: string, res: Response) => {
   
   //Get all users --only for admin
   export const getAllUsersService = async (res: Response) => {
-    const users = await userModel.find().sort({ createdAt: 1 });
+    const users = await userModel.find().sort({ createdAt: -1 });
   
     res.status(201).json({
       success: true,
@@ -26,16 +26,39 @@ export const getUserById = async (id: string, res: Response) => {
   };
   
   //update user role
-  export const updateUserRoleService = async (
-    res: Response,
-    id: string,
-    role: string
-  ) => {
-    const user = await userModel.findByIdAndUpdate(id, { role }, { new: true });
   
-    res.status(201).json({
-      success: true,
-      user,
-    });
+  export const updateUserRoleService = async (res: Response, email: string, role: string) => {
+    try {
+      // Find user by email
+      const user = await userModel.findOne({ email });
+  
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found',
+        });
+      }
+  
+      // Update the user's role
+      user.role = role;
+      await user.save();
+  
+      // Return a success response
+      return res.status(200).json({
+        success: true,
+        message: 'User role updated successfully',
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (error: any) {
+      return res.status(500).json({
+        success: false,
+        message: 'An error occurred while updating the role.',
+      });
+    }
   };
   

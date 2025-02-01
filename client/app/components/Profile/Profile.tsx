@@ -9,15 +9,15 @@ import ProfileInfo from "./ProfileInfo";
 import ChangePassword from "./changePassword";
 
 type Props = {
-    user:any
+    user: any
 }
-const Profile: FC<Props> = ({user}) => {
+const Profile: FC<Props> = ({ user }) => {
     const [scroll, setScroll] = useState(false);
     const [active, setActive] = useState(1);
     const [avatar, setAvatar] = useState(null);
-    const [logout, setLogout]= useState(false);
+    const [logout, setLogout] = useState(false);
     const { } = useLogOutQuery(undefined, {
-        skip:!logout?true:false
+        skip: !logout ? true : false
     })
 
     const logoutHandler = async () => {
@@ -35,35 +35,35 @@ const Profile: FC<Props> = ({user}) => {
         })
     }
 
-  return (
-    <div className="w-[90%] mx-auto flex">
-          <div className={`w-[30%] md:w-[312px] h-[400px] border rounded-[5px] shadow-sm mt-[80px] mb-[80px] sticky ${scroll ? "top-[120px]" : "top-[30px]"} left-[30px]`}>
-              <SidebarProfile
-                  user={user}
-                  avatar={avatar}
-                  active={active}
-                  setActive={setActive}
-                  logoutHandler={logoutHandler}
-              />
-          </div>
-          {
-              active === 1 && (
-                  <div className="w-full h-full bg-transparent mt-[80px]">
-                      <ProfileInfo user={user} avatar={avatar} />
-                      </div>
-                  
-                  )
-          },
-             {
-              active === 2 && (
-                  <div className="w-full h-full bg-transparent mt-[80px]">
-                      <ChangePassword   />
-                      </div>
-                  
-                  )
-              }
-    </div>
-  )
+    return (
+        <div className="w-[90%] mx-auto flex">
+            <div className={`w-[30%] md:w-[312px] h-[400px] border rounded-[5px] shadow-sm mt-[80px] mb-[80px] sticky ${scroll ? "top-[120px]" : "top-[30px]"} left-[30px]`}>
+                <SidebarProfile
+                    user={user}
+                    avatar={avatar}
+                    active={active}
+                    setActive={setActive}
+                    logoutHandler={logoutHandler}
+                />
+            </div>
+            {
+                active === 1 && (
+                    <div className="w-full h-full bg-transparent mt-[80px]">
+                        <ProfileInfo user={user} avatar={avatar} />
+                    </div>
+
+                )
+            },
+            {
+                active === 2 && (
+                    <div className="w-full h-full bg-transparent mt-[80px]">
+                        <ChangePassword />
+                    </div>
+
+                )
+            }
+        </div>
+    )
 }
 
 export default Profile
