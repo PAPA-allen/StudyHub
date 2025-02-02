@@ -67,7 +67,7 @@ const Team: FC<Props> = ({ isTeam, }) => {
         await updateUserRole({ email, role });
         setActive(false);
         refetch()
-      };
+    };
     useEffect(() => {
         if (updateError) {
             if ("data" in updateError) {
@@ -237,56 +237,54 @@ const Team: FC<Props> = ({ isTeam, }) => {
                                 />
                             </Box>
                             {active && (
-    <Dialog open={active} onOpenChange={setActive}>
-        <DialogContent>
-            <DialogHeader>
-                                                <DialogTitle>Update User</DialogTitle>
-                                                <DialogDescription/>
-            </DialogHeader>
-            <form onSubmit={handleSubmit}>
-                <CardHeader>
-                    <CardTitle>Update User Information</CardTitle>
-                    <CardDescription>Update the user's email and role.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid gap-4">
-                        {/* Email Field */}
-                        <div className="flex flex-col space-y-1.5">
-                            <Label htmlFor="email">Email</Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                value={email}  // Bind to the email state
-                                onChange={(e) => setEmail(e.target.value)}  // Update email when typed
-                                required
-                            />
-                        </div>
+                                <Dialog open={active} onOpenChange={setActive}>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>Update User</DialogTitle>
+                                            <DialogDescription />
+                                        </DialogHeader>
+                                        <form onSubmit={handleSubmit}>
+                                            <CardHeader>
+                                                <CardTitle>Update User Information</CardTitle>
+                                                <CardDescription>Update the user's email and role.</CardDescription>
+                                            </CardHeader>
+                                            <CardContent>
+                                                <div className="grid gap-4">
+                                                    {/* Email Field */}
+                                                    <div className="flex flex-col space-y-1.5">
+                                                        <Label htmlFor="email">Email</Label>
+                                                        <Input
+                                                            id="email"
+                                                            type="email"
+                                                            value={email}  // Bind to the email state
+                                                            onChange={(e) => setEmail(e.target.value)}  // Update email when typed
+                                                            required
+                                                        />
+                                                    </div>
 
-                        {/* Role Field */}
-                        <div className="flex flex-col space-y-1.5">
-                            <Label htmlFor="role">Role</Label>
-                            <Select value={role} onValueChange={setRole}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select Role" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="admin">Admin</SelectItem>
-                                    <SelectItem value="user">User</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </div>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                    <Button variant="outline" onClick={() => setActive(false)}>Cancel</Button>
-                    <Button type="submit">Update User</Button>
-                </CardFooter>
-            </form>
-        </DialogContent>
-    </Dialog>
-)}
-
-
+                                                    {/* Role Field */}
+                                                    <div className="flex flex-col space-y-1.5">
+                                                        <Label htmlFor="role">Role</Label>
+                                                        <Select value={role} onValueChange={setRole}>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Select Role" />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value="admin">Admin</SelectItem>
+                                                                <SelectItem value="user">User</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </div>
+                                                </div>
+                                            </CardContent>
+                                            <CardFooter className="flex justify-between">
+                                                <Button variant="outline" onClick={() => setActive(false)}>Cancel</Button>
+                                                <Button type="submit">Update User</Button>
+                                            </CardFooter>
+                                        </form>
+                                    </DialogContent>
+                                </Dialog>
+                            )}
                             {open && (
                                 <Dialog open={open} onOpenChange={setOpen}>
 

@@ -430,7 +430,7 @@ export const getAllUsers = CatchAsyncError(
 export const updateUserRole = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { email, role } = req.body; // Expecting email and role in the request body
+      const { email, role } = req.body; 
 
       // Check if both email and role are provided
       if (!email || !role) {

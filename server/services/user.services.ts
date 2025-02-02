@@ -26,7 +26,6 @@ export const getUserById = async (id: string, res: Response) => {
   };
   
   //update user role
-  
   export const updateUserRoleService = async (res: Response, email: string, role: string) => {
     try {
       // Find user by email
