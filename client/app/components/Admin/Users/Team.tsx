@@ -289,7 +289,7 @@ const Team: FC<Props> = ({ isTeam, }) => {
                                 <Dialog open={open} onOpenChange={setOpen}>
 
                                     <DialogTrigger asChild>
-                                        <Button variant="outline">Edit Profile</Button>
+                                        {/* <Button variant="outline">Edit Profile</Button> */}
                                     </DialogTrigger>
                                     <DialogContent className="sm:max-w-[425px]">
                                         <DialogHeader>

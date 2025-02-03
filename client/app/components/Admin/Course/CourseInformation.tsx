@@ -56,7 +56,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
     return (
         <div className="w-[80%] m-auto mt-24">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium  mb-2 ">
                     Course Name*
                 </label>
                 <div>
@@ -68,12 +68,12 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                         value={courseInfo.name}
                         onChange={(e: any) => setCourseInfo({ ...courseInfo, name: e.target.value })}
                         placeholder="Studyhub materials"
-                        className="block w-full px-4 py-2 mt-1 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
+                        className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
                     />
                 </div>
                 <br />
                 <div className="mb-5">
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="description" className="block text-sm font-medium  mb-2 ">
                         Course Description*
                     </label>
                     <textarea
@@ -86,7 +86,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                         onChange={(e: any) => setCourseInfo({
                             ...courseInfo, description: e.target.value
                         })}
-                        className="block w-full px-4 py-2 mt-1 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
+                        className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
                     />
                 </div>
                 <br />
@@ -98,12 +98,12 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                             name=""
                             required
                             id="price"
-                            value={courseInfo.costprice}
+                            value={courseInfo.price}
                             placeholder="10"
                             onChange={(e: any) => setCourseInfo({
                                 ...courseInfo, price: e.target.value
                             })}
-                            className="block w-full px-4 py-2 mt-1 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
+                            className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
                             step="0.01"
                         />
                     </div>
@@ -113,13 +113,13 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                             type="number"
                             name=""
                             required
-                            id="price"
+                            id="estimatedPrice"
                             value={courseInfo.estimatedPrice}
                             placeholder="10"
                             onChange={(e: any) => setCourseInfo({
                                 ...courseInfo, estimatedPrice: e.target.value
                             })}
-                            className="block w-full px-4 py-2 mt-1 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
+                            className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
                             step="0.01"
                         />
                     </div>
@@ -133,10 +133,10 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                         name=""
                         id="tags"
                         required
-                        value={courseInfo.courseTags}
+                        value={courseInfo.tags}
                         onChange={(e: any) => setCourseInfo({ ...courseInfo, tags: e.target.value })}
                         placeholder="tailwind"
-                        className="block w-full px-4 py-2 mt-1 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
+                        className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
                     />
                 </div>
                 <br />
@@ -154,7 +154,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                             onChange={(e: any) => setCourseInfo({
                                 ...courseInfo, level: e.target.value
                             })}
-                            className="block w-full px-4 py-2 mt-1 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
+                            className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
                         />
                     </div>
                     <div className="w-[50%]">
@@ -169,7 +169,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                             onChange={(e: any) => setCourseInfo({
                                 ...courseInfo, demoUrl: e.target.value
                             })}
-                            className="block w-full px-4 py-2 mt-1 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
+                            className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
                         />
                     </div>
 

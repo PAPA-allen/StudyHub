@@ -155,7 +155,7 @@ const CourseContent: FC<Props> = ({ active, setActive, courseContentData, setCou
                             {!isCollapsed[index] && (
                                 <>
                                     <div className="my-3">
-                                        <label className="text-gray-700 font-medium">Video Title</label>
+                                        <label className="font-medium">Video Title</label>
                                         <input
                                             type="text"
                                             placeholder="Project Plan"
@@ -169,7 +169,7 @@ const CourseContent: FC<Props> = ({ active, setActive, courseContentData, setCou
                                         />
                                     </div>
                                     <div className="mb-3">
-                                        <label className="text-gray-700 font-medium">Video Url</label>
+                                        <label className=" font-medium">Video Url</label>
                                         <input
                                             type="url"
                                             placeholder="http://..."
@@ -183,7 +183,7 @@ const CourseContent: FC<Props> = ({ active, setActive, courseContentData, setCou
                                         />
                                     </div>
                                     <div className="mb-3">
-                                        <label className="text-gray-700 font-medium">Video Description</label>
+                                        <label className=" font-medium">Video Description</label>
                                         <textarea
                                             rows={8}
                                             cols={30}

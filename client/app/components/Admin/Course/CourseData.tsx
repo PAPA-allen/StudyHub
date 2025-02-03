@@ -54,22 +54,22 @@ const CourseData: FC<Props> = ({ benefits, setBenefits, prerequisites, setPrereq
         <div className="w-[80%] m-auto mt-24">
             {/* Benefits Section */}
             <div>
-                <label htmlFor="benefits" className="block text-lg font-semibold text-gray-700 mb-2">
+                <label htmlFor="benefits" className="block text-lg font-semibold  mb-2">
                     What are the benefits for students in this course?
                 </label>
                 {/* Benefits inputs */}
-                {benefits.map((benefit, index) => (
-                    <div key={index} className="mb-4">
+                {benefits.map((benefit:any, index:number) => (
                         <input
                             type="text"
                             name="Benefit"
+                            key={index}
                             placeholder="You would be able to learn something new here"
                             required
-                            className="block w-full px-4 py-3 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
-                            value={benefit.title}
+                            className="block w-full px-4 py-3 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
+                            value={benefit.
+                                title}
                             onChange={(e) => handleBenefitChange(index, e.target.value)}
                         />
-                    </div>
                 ))}
                 {/* Add Benefit Button */}
                 <div className="flex justify-start mt-4">
@@ -83,22 +83,21 @@ const CourseData: FC<Props> = ({ benefits, setBenefits, prerequisites, setPrereq
 
             {/* Prerequisites Section */}
             <div className="mt-8">
-                <label htmlFor="prerequisites" className="block text-lg font-semibold text-gray-700 mb-2">
+                <label htmlFor="prerequisites" className="block text-lg font-semibold mb-2">
                     What are the prerequisites for students in this course?
                 </label>
                 {/* Prerequisites inputs */}
-                {prerequisites.map((prerequisite, index) => (
-                    <div key={index} className="mb-4">
+                {prerequisites.map((prerequisite:any, index:number) => (
                         <input
                             type="text"
+                            key={index}
                             name="prerequisites"
                             placeholder="You would need basic knowledge to learn something new here"
                             required
-                            className="block w-full px-4 py-3 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
+                            className="block w-full px-4 py-3 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
                             value={prerequisite.title}
                             onChange={(e) => handlePrerequisitesChange(index, e.target.value)}
                         />
-                    </div>
                 ))}
                 {/* Add Prerequisite Button */}
                 <div className="flex justify-start mt-4">

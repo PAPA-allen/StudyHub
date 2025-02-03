@@ -16,7 +16,7 @@ const CreateCourse: FC<Props> = () => {
     useEffect(() => {
         if (isSuccess) {
             toast.success("Course created Successsfully");
-            redirect("/admin/all-courses")
+            redirect("/admin/courses")
         }
         if (error) {
             if ("data" in error) {
@@ -61,7 +61,7 @@ const CreateCourse: FC<Props> = () => {
 
               
         //formet prerequisites array
-        const formattedPrereuisites = prerequisites.map((prerequisite) => ({ title: prerequisite.title }));
+        const formattedPrerequisites = prerequisites.map((prerequisite) => ({ title: prerequisite.title }));
 
 
         //format course content array
@@ -88,8 +88,8 @@ const CreateCourse: FC<Props> = () => {
             demoUrl: courseInfo.demoUrl,
             totalVideos: courseContentData.length,
             benefits: formattedBenefits,
-            prerequisites: formattedBenefits,
-            courseContent: formattedCourseContentData,
+            prerequisites: formattedPrerequisites,
+            courseData: formattedCourseContentData,
         };
         setCourseData(data);
 

@@ -8,16 +8,37 @@ import { Mail, Pencil } from 'lucide-react';
 import { useGetAllCoursesQuery } from '@/redux/features/courses/courseApi';
 import Loader from '@/components/loader';
 import { format } from "timeago.js"
-import { useGetAllUsersQuery } from '@/redux/features/user/userApi';
+import { useDeleteUserMutation, useGetAllUsersQuery, useUpdateUserRoleMutation } from '@/redux/features/user/userApi';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+} from "@/components/ui/dialog"
+
 
 type Props = {};
 
 const AllUsers = (props: Props) => {
-    const { isLoading, error, isSuccess, data } = useGetAllUsersQuery({});
+    const [open, setOpen] = useState(false);
+    const [userId, setUserId] = useState("");
+    const { isLoading, refetch, data } = useGetAllUsersQuery({}, { refetchOnMountOrArgChange: true });
+    const [updateUserRole, { isSuccess, error: updateError }] = useUpdateUserRoleMutation();
+    const [deleteUser, { isSuccess: deleteSuccess, error: deleteError }] = useDeleteUserMutation();
     const [isDarkMode, setIsDarkMode] = useState(false); // State to toggle dark mode
 
     // Toggle between light and dark mode
     const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
+
+    const handleDelete = async () => {
+        const id = userId;
+        await deleteUser(id);
+        setOpen(!open)
+        refetch();
+    }
 
     const columns = [
         { field: "id", headerName: "_id", flex: 0.3 },
@@ -32,11 +53,11 @@ const AllUsers = (props: Props) => {
                 return (
                     <>
                         <Button asChild>
-                        <a
-                        href={`mailto:${params.row.email}`}>
-                            <Mail/>
+                            <a
+                                href={`mailto:${params.row.email}`}>
+                                <Mail />
                             </a>
-                            </Button>
+                        </Button>
                     </>
                 );
             }
@@ -46,7 +67,10 @@ const AllUsers = (props: Props) => {
             renderCell: (params: any) => {
                 return (
                     <>
-                        <Button>
+                        <Button onClick={() => {
+                            setOpen(!open);
+                            setUserId(params.row.id);
+                        }}>
                             <AiOutlineDelete />
                         </Button>
                     </>
@@ -61,9 +85,9 @@ const AllUsers = (props: Props) => {
             rows.push({
                 id: item._id,
                 title: item.name,
-                email:item.email,
-                role:item.role,
-                courses:item.courses.length,
+                email: item.email,
+                role: item.role,
+                courses: item.courses.length,
                 created_at: format(item.createdAt)
             })
         })
@@ -124,21 +148,50 @@ const AllUsers = (props: Props) => {
                                         color: isDarkMode ? '#fff' : '#000', // Checkbox color
                                     },
                                 }}
-                            />
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                initialState={{
-                                    pagination: {
-                                        paginationModel: {
-                                            pageSize: 5,
+                            >
+                                <DataGrid
+                                    rows={rows}
+                                    columns={columns}
+                                    initialState={{
+                                        pagination: {
+                                            paginationModel: {
+                                                pageSize: 5,
+                                            },
                                         },
-                                    },
-                                }}
-                                pageSizeOptions={[5]}
-                                checkboxSelection
-                                disableRowSelectionOnClick
-                            />
+                                    }}
+                                    pageSizeOptions={[5]}
+                                    checkboxSelection
+                                    disableRowSelectionOnClick
+                                />
+                            </Box>
+                            {open && (
+                                <Dialog open={open} onOpenChange={setOpen}>
+
+                                    <DialogTrigger asChild>
+                                        {/* <Button variant="outline">Edit Profile</Button> */}
+                                    </DialogTrigger>
+                                    <DialogContent className="sm:max-w-[425px]">
+                                        <DialogHeader>
+                                        </DialogHeader>
+                                        <DialogTitle>Are you absolutely sure?</DialogTitle>
+                                        <DialogDescription>
+                                            This action cannot be undone. This will permanently delete your account
+                                            and remove your data from our servers.
+                                        </DialogDescription>
+                                        <div className="flex items-center justify-between">
+                                            <DialogFooter>
+                                                <Button variant="outline" onClick={() => setOpen(!open)}>Cancel</Button>
+                                            </DialogFooter>
+                                            <DialogFooter>
+                                                <Button type="submit" variant="destructive" onClick={handleDelete}>Delete</Button>
+
+                                            </DialogFooter>
+                                        </div>
+
+                                    </DialogContent>
+                                </Dialog>
+
+                            )}
                         </Box>
                     )
                 }
