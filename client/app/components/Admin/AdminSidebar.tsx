@@ -165,7 +165,7 @@ const AdminSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
           className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
           onClick={toggleMobileSidebar}
         >
-          <div className="absolute top-0 left-0 w-2/3 h-full bg-white p-4">
+          <div className="absolute top-0 left-0 w-2/3 h-full dark:bg-gray-900 p-4">
             <div className="flex justify-between items-center">
               <div className="ml-auto mr-auto">
               <Image
