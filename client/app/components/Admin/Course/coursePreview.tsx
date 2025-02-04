@@ -8,9 +8,10 @@ type Props = {
     setActive: (active: number) => void;
     courseData: any;
     handleCourseCreate: any;
+    isEdit:boolean
 }
 
-const coursePreview: FC<Props> = ({ active, setActive, courseData, handleCourseCreate }) => {
+const coursePreview: FC<Props> = ({ active, setActive, courseData, handleCourseCreate, isEdit}) => {
 
     const discountPercentage = ((courseData?.estimatedPrice - courseData?.price) / courseData?.estimatedPrice) * 100;
 
@@ -43,17 +44,17 @@ const coursePreview: FC<Props> = ({ active, setActive, courseData, handleCourseC
                     </h4>
                 </div>
                 <div className="flex items-center">
-                    <div className="cursor-not-allowed text-gray-500 bg-gray-200 rounded-lg py-2 px-4 text-lg font-semibold shadow-md w-max">
+                    <div className="cursor-not-allowed text-gray-500 bg-gray-200 rounded-full py-2 px-4 text-lg font-semibold shadow-md w-max m-5">
                         Buy Now {courseData?.price} GH₵
                     </div>
                 </div>
-                <div className="flex items-center space-x-4 mt-5">
+                <div className="flex items-center space-x-4 m-5">
                     <input
                         type="text"
                         name=""
                         id=""
                         placeholder="Discount code"
-                        className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                        className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full "
                     />
                     <div className="cursor-pointer bg-blue-500 text-white rounded-lg py-2 px-6 font-semibold shadow-md hover:bg-blue-600">
                         Apply
@@ -117,7 +118,9 @@ const coursePreview: FC<Props> = ({ active, setActive, courseData, handleCourseC
   </button>
   
   <button className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out" onClick={ ()=>createCourse()}>
-   Create
+                    {
+                        isEdit ?"Update":"Create"
+  }
   </button>
 </div>
 

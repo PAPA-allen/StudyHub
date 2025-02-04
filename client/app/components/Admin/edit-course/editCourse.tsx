@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useEffect, useState } from 'react'
-import { useCreateCourseMutation, useGetAllCoursesQuery } from '@/redux/features/courses/courseApi';
+import { useEditCourseMutation, useGetAllCoursesQuery } from '@/redux/features/courses/courseApi';
 import { toast } from 'sonner';
 import { redirect } from 'next/navigation';
 import CourseOptions from '../Course/CourseOptions';
@@ -15,10 +15,23 @@ type Props = {
 }
 
 const EditCourse: FC<Props> = ({ id }) => {
+    const [editCourse, {isSuccess, error:editError}] = useEditCourseMutation();
     const { error, data, refetch } = useGetAllCoursesQuery({}, { refetchOnMountOrArgChange: true });
     
     const editCourseData = data && data.courses.find((i: any) => i._id === id);
 
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Course Updated successfully");
+            redirect("/admin/courses")
+        }
+        if (error) {
+            if ("data" in error) {
+                const errorData = error as any;
+                toast.error(errorData?.data?.message);
+            }
+        }
+},[isSuccess,error])
     const [active, setActive] = useState(0);
 
     // Updating the states after fetching the data
@@ -108,9 +121,7 @@ const EditCourse: FC<Props> = ({ id }) => {
 
     const handleCourseCreate = async (e: any) => {
         const data = courseData;
-        // Here you can call an API to create/update the course
-        // Example:
-        // await createCourse(data);
+        await editCourse({id:editCourseData?._id,data});
     }
 
     return (
@@ -153,12 +164,13 @@ const EditCourse: FC<Props> = ({ id }) => {
                             active={active}
                             setActive={setActive}
                             courseData={courseData}
-                            handleCourseCreate={handleCourseCreate} />
+                            handleCourseCreate={ handleCourseCreate}
+                            isEdit={true}/>
                     )
                 }
             </div>
             <div className=" hidden sm:block w-[20%] mt-[100px] h-screen fixed z-[1] top-18 right-0">
-                <CourseOptions active={active} setActive={setActive} />
+                <CourseOptions active={active} setActive={setActive}  />
             </div>
         </div>
     )

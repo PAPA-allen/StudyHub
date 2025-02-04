@@ -143,7 +143,8 @@ const CreateCourse: FC<Props> = () => {
                       <CoursePreview
                           active={active} setActive={setActive}
                           courseData={courseData}
-                          handleCourseCreate={handleCourseCreate} />
+                          handleCourseCreate={handleCourseCreate}
+                          isEdit={true} />
                   )
               }
           </div>
