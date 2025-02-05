@@ -41,7 +41,7 @@ const bannerImageSchema = new Schema <BannerImage>({
     url:{type:String}
 })
 
-const layOutSChema = new Schema <Layout>({
+const layoutSChema = new Schema <Layout>({
     type:{type:String},
     faq:[faqSchema],
     categories:[categorySchema],
@@ -52,6 +52,6 @@ const layOutSChema = new Schema <Layout>({
     },
 })
 
-const LayoutModel=model<Layout>('Layout', layOutSChema);
+const LayoutModel=model<Layout>('Layout', layoutSChema);
 
 export default LayoutModel;
