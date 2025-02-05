@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react'
+import { useGetHeroDataQuery } from '@/redux/features/layout/layoutApi';
+import React, { FC, useEffect, useState } from 'react'
 
 type Props = {
     courseInfo: any;
@@ -8,8 +9,16 @@ type Props = {
 }
 
 const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setActive }) => {
+    const { data } = useGetHeroDataQuery("Categories", {
+    });
     const [dragging, setDragging] = useState(false);
+    const [categories, setCategories] = useState([])
 
+    useEffect(() => {
+        if (data) {
+            setCategories(data.layout.categories);
+        }
+    }, [data])
     const handleSubmit = (e: any) => {
         e.preventDefault()
         setActive(active + 1)
@@ -107,7 +116,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                             step="0.01"
                         />
                     </div>
-                    <div className="w-[45%]">
+                    <div className="w-[50%]">
                         <label>Estimated Price</label>
                         <input
                             type="number"
@@ -126,22 +135,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
 
                 </div>
                 <br />
-                <div>
-                    <label htmlFor="email">Course Tags*</label>
-                    <input
-                        type="text"
-                        name=""
-                        id="tags"
-                        required
-                        value={courseInfo.tags}
-                        onChange={(e: any) => setCourseInfo({ ...courseInfo, tags: e.target.value })}
-                        placeholder="tailwind"
-                        className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
-                    />
-                </div>
-                <br />
                 <div className="w-full flex justify-between">
-
                     <div className="w-[45%]">
                         <label>Course Level*</label>
                         <input
@@ -154,7 +148,42 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                             onChange={(e: any) => setCourseInfo({
                                 ...courseInfo, level: e.target.value
                             })}
-                            className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
+                            className="block w-full px-4 py-2 mt-1 text-sm placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
+                        />
+                    </div>
+
+                    <div className="w-[50%]">
+                        <label>Course Categories</label>
+                        <select
+                            name=""
+                            id=""
+                            className="block w-full px-4 py-2 mt-1 text-sm placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
+                            value={courseInfo.category}
+                            onChange={(e: any) => setCourseInfo({ ...courseInfo, category: e.target.value })}
+                        >
+                            <option value="">Select Category</option>
+                            {categories.map((item: any) => (
+                                <option value={item.title} key={item._id}>
+                                    {item.title}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                <br />
+                <div className="w-full flex justify-between">
+                    <div className="w-[45%]">
+                        <label htmlFor="email">Course Tags*</label>
+                        <input
+                            type="text"
+                            name=""
+                            id="tags"
+                            required
+                            value={courseInfo.tags}
+                            onChange={(e: any) => setCourseInfo({ ...courseInfo, tags: e.target.value })}
+                            placeholder="tailwind"
+                            className="block w-full px-4 py-2 mt-1 text-sm  placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200 ease-in-out"
                         />
                     </div>
                     <div className="w-[50%]">
@@ -203,7 +232,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                     <input
                         type="submit"
                         value="Next"
-                    className="w-full h-[40px] bg-blue-900 text-center rounded mt-8 cursor-pointer mb-5 hover:bg-white"/>
+                        className="w-full h-[40px] bg-blue-900 text-center rounded mt-8 cursor-pointer mb-5 hover:bg-white" />
                 </div>
             </form>
         </div>

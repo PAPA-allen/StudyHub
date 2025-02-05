@@ -7,7 +7,7 @@ import { toast } from "sonner";
 type Props = {};
 
 const EditHero: FC<Props> = () => {
-  const [editLayout, {isLoading, isSuccess, error }]=useEditLayoutMutation()
+  const [editLayout, {isSuccess, error }]=useEditLayoutMutation()
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");

@@ -17,7 +17,6 @@ const EditFAQ = (props: Props) => {
 
   useEffect(() => {
     if (data) {
-      
       setQuestions(data.layout.faq);
       refetch()
     }

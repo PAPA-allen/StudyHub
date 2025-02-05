@@ -8,7 +8,7 @@ type Props = {
     setActive: (active: number) => void;
     courseData: any;
     handleCourseCreate: any;
-    isEdit:boolean
+    isEdit?:boolean
 }
 
 const coursePreview: FC<Props> = ({ active, setActive, courseData, handleCourseCreate, isEdit}) => {

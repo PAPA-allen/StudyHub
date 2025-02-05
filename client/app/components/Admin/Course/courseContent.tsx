@@ -103,6 +103,7 @@ const CourseContent: FC<Props> = ({ active, setActive, courseContentData, setCou
         }
     };
 
+
     return (
         <div className="w-[80%] m-auto mt-10 p-3">
             <form onSubmit={handleSubmit}>
@@ -171,12 +172,26 @@ const CourseContent: FC<Props> = ({ active, setActive, courseContentData, setCou
                                     <div className="mb-3">
                                         <label className=" font-medium">Video Url</label>
                                         <input
-                                            type="url"
-                                            placeholder="http://..."
+                                            type="text"
+                                            placeholder="https"
                                             value={item.videoUrl}
                                             onChange={(e) => {
                                                 const updatedData = [...courseContentData];
                                                 updatedData[index].videoUrl = e.target.value;
+                                                setCourseContentData(updatedData);
+                                            }}
+                                            className="mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none w-full"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className=" font-medium">Video Length (in minutes)</label>
+                                        <input
+                                            type="number"
+                                            placeholder="20"
+                                            value={item.videoLength}
+                                            onChange={(e) => {
+                                                const updatedData = [...courseContentData];
+                                                updatedData[index].videoLength = e.target.value;
                                                 setCourseContentData(updatedData);
                                             }}
                                             className="mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none w-full"
