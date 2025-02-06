@@ -103,11 +103,11 @@ const data = {
         },
         {
           title: "Orders Analytics",
-          url: "/admin/orders-analytics",
+          url: "/admin/ordersAnalytics",
         },
         {
           title: "Users Analytics",
-          url: "/admin/users-analytics",
+          url: "/admin/usersAnalytics",
         },
       ],
     },
@@ -115,10 +115,6 @@ const data = {
       title: "Extras",
       url: "#",
       items: [
-        {
-          title: "Settings",
-          url: "/admin/settings",
-        },
         {
           title: "Logout",
           url: "#",
