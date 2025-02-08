@@ -4,6 +4,9 @@ import { Header, Landing } from './components'
 import Profile from './profile/page';
 import Heading from './utils/Heading';
 import Courses from './components/route/Courses';
+import Reviews from './components/route/Reviews';
+import FAQ from './components/route/FAQ';
+import Footer from './components/route/Footer';
 
 
 interface Props {
@@ -28,7 +31,10 @@ const Page: FC<Props> = () => {
         route={route}
       />
       <Landing />
-      <Courses/>
+      <Courses />
+      <Reviews />
+      <FAQ />
+      <Footer/>
     </div>
   )
 }

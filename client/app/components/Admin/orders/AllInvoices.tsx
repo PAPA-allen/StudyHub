@@ -7,6 +7,7 @@ import { useGetAllUsersQuery } from '@/redux/features/user/userApi';
 import { useGetAllCoursesQuery } from '@/redux/features/courses/courseApi';
 import { format } from 'timeago.js';
 import Papa from 'papaparse';
+import Loader from '@/components/loader';
 
 type Props = {
   isDashboard: boolean;
@@ -65,7 +66,12 @@ const AllInvoices = (props: Props) => {
   };
 
   return (
-    <Box className="p-6 space-y-6">
+  <>
+    {
+      isLoading?(
+        <Loader/>
+      ): (
+        <Box className="p-6 space-y-6">
       <Typography variant="h4" className="text-gray-800 font-semibold">All Invoices</Typography>
       
       <Card className="shadow-lg p-4">
@@ -114,6 +120,10 @@ const AllInvoices = (props: Props) => {
         </CardContent>
       </Card>
     </Box>
+          )
+        
+    }
+    </>
   );
 };
 
