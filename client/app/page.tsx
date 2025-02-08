@@ -3,6 +3,8 @@ import React, { FC, useState } from 'react'
 import { Header, Landing } from './components'
 import Profile from './profile/page';
 import Heading from './utils/Heading';
+import Courses from './components/route/Courses';
+
 
 interface Props {
 
@@ -26,6 +28,7 @@ const Page: FC<Props> = () => {
         route={route}
       />
       <Landing />
+      <Courses/>
     </div>
   )
 }

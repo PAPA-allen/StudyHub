@@ -117,6 +117,20 @@ body {
   }
 }
 
+@keyframes slideLeft {
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
+}
+
+.animate-slideLeft {
+  animation: slideLeft 10s linear infinite;
+}
+
+
 @layer base {
   * {
     @apply border-border;

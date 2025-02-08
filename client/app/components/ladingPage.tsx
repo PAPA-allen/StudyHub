@@ -1,92 +1,88 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';  // Import framer-motion for animation
-import { Search } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Default from "../../app/components/images/Hero.png"; 
+import { useGetHeroDataQuery } from '@/redux/features/layout/layoutApi';
 
 const Lading = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const { data, refetch } = useGetHeroDataQuery("Banner", {});
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsVisible(true), 500); // Delay animation
+        const timer = setTimeout(() => setIsVisible(true), 500);
         return () => clearTimeout(timer);
     }, []);
 
+    // Fallback image URL
+    const imageUrl = data?.layout?.banner?.image?.url || Default;
+
     return (
         <motion.div
-            className="mt-[30px] max-w-7xl mx-auto md:py-10"
+            className="relative w-full"
             initial={{ opacity: 0, y: 50 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1 }}
         >
-            <div className="flex flex-col items-center justify-center">
-                <h1 className="text-2xl md:text-4xl font-bold text-center px-4">
-                    Unlock Your Full Potential with Our Online StudyHub
-                </h1>
-                <h2 className="font-semibold text-[18px] py-4 text-center text-gray-700 px-4">
-                    Enhance Your Learning Skills & Achieve Academic Excellence
-                </h2>
-                <p className="mx-auto text-[20px] font-medium text-gray-600 max-w-[800px] text-center px-4">
-                    Whether you’re mastering complex subjects or refining your study habits, our StudyHub is designed to help you study smarter, not harder. Gain access to expert resources, personalized learning strategies, and a community of like-minded learners. Stay motivated, organized, and on track to achieve your academic goals.
-                </p>
+            {/* Image Section with Opacity Overlay */}
+            <div className="relative w-full overflow-hidden mb-10 transition-all duration-500">
+                <motion.div
+                    className="absolute inset-0 w-full h-full opacity-40"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.4 }}
+                    transition={{ duration: 1 }}
+                />
 
-                <div className="text-center p-10 text-[20px] mx-auto">
-                    <p className="font-bold text-2xl mb-4">What You’ll Gain:</p>
-                    <div className="space-y-6 mx-auto text-gray-500 text-center">
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <div className="flex items-center">
-                                <span className="text-green-500 text-xl mr-3">✔</span>
-                                <strong>Effective Learning Techniques:</strong> Learn strategies that will make your study sessions more productive and enjoyable.
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <div className="flex items-center">
-                                <span className="text-green-500 text-xl mr-3">✔</span>
-                                <strong>Customized Study Plans:</strong> Receive tailored plans that align with your learning pace and personal goals for optimal results.
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <div className="flex items-center">
-                                <span className="text-green-500 text-xl mr-3">✔</span>
-                                <strong>Access to Expert Resources:</strong> Get the latest tools, tips, and insights from experienced educators to boost your learning.
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <div className="flex items-center">
-                                <span className="text-green-500 text-xl mr-3">✔</span>
-                                <strong>Community Support:</strong> Join a vibrant community of motivated peers to collaborate, exchange ideas, and grow together.
-                            </div>
-                        </motion.div>
-                    </div>
-                    <div className="max-w-[400px] mx-auto py-10 flex space-x-4">
-                        <input
-                            placeholder="Search courses ..."
-                            className="w-full p-3 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-gray-700 outline-none"
+                {/* Static Image Section */}
+                <div className="relative w-full">
+                    {imageUrl ? (
+                        <Image
+                            src={imageUrl}
+                            alt="StudyHub Banner"
+                            layout="responsive"
+                            width={1200}
+                            height={100}
                         />
-                        <button
-                            className="bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 "
-                        >
-                            <Search/>
-                        </button>
-                    </div>
+                    ) : (
+                        <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                            <p className="text-white">No image available</p>
+                        </div>
+                    )}
+                </div>
 
+                {/* Moving Text on top of Image */}
+                <motion.div
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-xl md:text-3xl lg:text-4xl xl:text-6xl z-10 text-center w-full px-4"
+                    initial={{ x: "100%" }}
+                    animate={{ x: "-50%" }}
+                    transition={{
+                        type: "spring",
+                        duration: 4,
+                        delay: 0.5,
+                    }}
+                >
+                    {data?.layout?.banner?.title}
+                </motion.div>
+            </div>
+
+            {/* Main Content Section */}
+            <div className="flex flex-col items-center justify-center text-center">
+                <div className="w-full px-4">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                        Master Your Studies, Achieve Your Goals, and Excel in Every Subject
+                    </h2>
+                    <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+                    {data?.layout?.banner?.subTitle}
+                    </p>
+
+                    {/* Call to Action Button */}
+                    <div className="mt-8">
+                        <a
+                            href="#"
+                            className="inline-block px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+                        >
+                            Join StudyHub Today
+                        </a>
+                    </div>
                 </div>
             </div>
         </motion.div>

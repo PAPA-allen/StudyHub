@@ -13,6 +13,7 @@ import avatar from "../components/images/user.png"
 import { useSession } from 'next-auth/react';
 import { useLogOutQuery, useSocialAuthMutation } from '@/redux/features/auth/authApi';
 import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 
 
 interface Props {
@@ -75,7 +76,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, open, route, setRoute }) => {
 
     return (
         <header className="w-full flex mx-auto px-4 lg:px-6">
-            <div className={`${active ? "dark:bg-opacity-50 dark:bg-gradient-b dark:from-gray-900 dark:to-black w-full fixed left-0 top-0 z-[80] h-[80px] border-b border-b-slate-50 backdrop-blur" : "w-full left-0 top-0"}`}>
+            <div className={`${active ? "dark:bg-opacity-50 dark:bg-gradient-b dark:from-gray-900 dark:to-black w-full fixed left-0 top-0 z-[80] h-[80px]  backdrop-blur" : "w-full left-0 top-0"}`}>
                 <div className="mx-auto max-w-7xl flex items-center justify-between py-4 px-4">
                     <Link href="/" className="md:text-2xl font-bold">
                         <h1>StudyHub</h1>
@@ -102,10 +103,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, open, route, setRoute }) => {
                                 </Link>
                             ) : (
                                 <div className="md:px-2 hidden md:flex">
-                                    <User className="rounded-full cursor-pointer hover:ring-2"
-                                        size={25}
-                                        onClick={() => setOpen(true)}
-                                    />
+                                        <Button  onClick={() => setOpen(true)}>Login</Button>
                                 </div>
                             )
                         }
@@ -120,10 +118,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, open, route, setRoute }) => {
                             <div className="w-[60%] fixed z-[999999999] h-screen bg-white dark:bg-gray-900 top-0 right-0">
                                 <NavLink isMobile={true} activeItem={activeItem} />
                                 <div className="px-4">
-                                    <User className="cursor-pointer"
-                                        size={25}
-                                        onClick={() => setOpen(true)}
-                                    />
+                                    <Button  onClick={() => setOpen(true)} > Login</Button>
                                     <br />
                                     <br />
                                     <br />
@@ -181,6 +176,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, open, route, setRoute }) => {
                     )
                 }
             </div>
+            
         </header>
     )
 }
