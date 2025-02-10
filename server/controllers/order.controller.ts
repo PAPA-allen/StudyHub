@@ -10,6 +10,11 @@ import OrderModel, { IOrder } from "../models/order.model";
 import NotificationModel from "../models/notification.model";
 import sendMail from "../utils/sendMail";
 import { userModel } from "../models/user.model";
+import "dotenv/config";
+import { redis } from "../utils/redis";
+import { RedisKey } from "ioredis";
+const paystack = require('paystack-api');
+const paystackInstance = paystack(process.env.PAYSTACK_SECRET_KEY);
 
 //create order
 export const createorder = CatchAsyncError(
@@ -17,18 +22,26 @@ export const createorder = CatchAsyncError(
     try {
       const { courseId, payment_info } = req.body as IOrder;
 
+      if (payment_info) {
+        if ("reference" in payment_info) {
+          const paymentReference = payment_info.reference;
+          
+          // Verify the payment via Paystack using the reference
+          const paymentVerification = await paystackInstance.transaction.verify(paymentReference);
+
+          console.log("see",paymentVerification);
+          if (paymentVerification.status !== "success") {
+            return next(new ErrorHandler("Payment not authorized", 400));
+          }
+        }
+}
       const user = await userModel.findById(req.user?._id);
 
-    //   const courseExistInUser = user?.courses.some(
-    //     (course: any) => course._id.toString() === courseId
-    //   );
-
-    //   if (courseExistInUser) {
-    //     return next(
-    //       new ErrorHandler("You have already purchased this course", 400)
-    //     );
-    //   }
-
+      const courseExistingUser = user?.courses.some((course: any) => course._id.toString() === courseId)
+      
+      if (courseExistingUser) {
+        return next(new ErrorHandler("You have already purchased this course", 400));
+      }
       const course = await CourseModel.findById(courseId);
 
       if (!course) {
@@ -40,8 +53,6 @@ export const createorder = CatchAsyncError(
         userId: user?._id,
         payment_info,
       };
-
-      newOrder(data, res, next);
 
       const mailData = {
         order: {
@@ -56,6 +67,7 @@ export const createorder = CatchAsyncError(
           currentYear: new Date().getFullYear(),
         },
       };
+
 
       const html = await ejs.renderFile(
         path.join(__dirname, "../mails/order-confirmation.ejs"),
@@ -77,8 +89,9 @@ export const createorder = CatchAsyncError(
 
       user?.courses.push({ courseId: course?._id as string });
 
-
+      await redis.set(req.user?._id as RedisKey, JSON.stringify(user));
       await user?.save();
+
 
       await NotificationModel.create({
         user: user?._id,
@@ -105,3 +118,41 @@ export const getAllOrders = CatchAsyncError(async(req:Request, res:Response, nex
     return next(new ErrorHandler(error.message, 500))
   }
 })
+
+// Send Paystack Public Key to the client
+export const sendPaystackPublishableKey = CatchAsyncError(async (req:Request, res:Response, next:NextFunction) => {
+  res.status(200).json({
+    PublishableKey: process.env.PAYSTACK_PUBLISHABLE_KEY // Your Paystack public key here
+  })
+});
+
+
+// Create a new payment with Paystack
+export const newPayment = CatchAsyncError(async (req:Request, res:Response, next:NextFunction) => {
+  try {
+    const { amount, email } = req.body;
+    const paymentData = {
+      amount: amount * 100, 
+      email: email,         
+      currency: 'GHS',       
+      
+    };
+
+    const response = await paystackInstance.transaction.initialize(paymentData);
+
+    // Send the authorization URL to the client for redirection
+    if (response.status === 'success') {
+      res.status(201).json({
+        success: true,
+        authorization_url: response.data.authorization_url, 
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: response.message,
+      });
+    }
+  } catch (error:any) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});

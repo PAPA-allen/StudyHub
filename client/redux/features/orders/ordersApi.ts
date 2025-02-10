@@ -10,8 +10,33 @@ export const ordersApi = apiSlice.injectEndpoints({
                 credentials: "include" as const,
             })
         }),
+        getPaystackPublishableKey: builder.query({
+            query: () => ({
+                url: `payment/paystackpublishablekey`,
+                method: "GET",
+                credentials:"include" as const,
+            }),
+
+        }),
+        createPaymentIntent: builder.mutation({
+            query: (amount) => ({
+                url: "payment",
+                method: "POST",
+                body: {amount},
+                credentials:"include" as const,
+            })
+
+        }),
+        createOrder: builder.mutation({
+            query: ({courseId, payment_info}) => ({
+                url: "create-order",
+                methos:"POST",
+                body: { courseId, payment_info },
+                credentials:"include" as const,
+            })
+        })
     
     })
 })
 
-export const {useGetAllOrdersQuery}=ordersApi
+export const {useGetAllOrdersQuery, useGetPaystackPublishableKeyQuery, useCreatePaymentIntentMutation, useCreateOrderMutation}=ordersApi
