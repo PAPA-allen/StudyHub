@@ -1,9 +1,9 @@
 import AllInvoices from '@/app/components/Admin/orders/AllInvoices'
 import React from 'react'
 
-type Props = {}
 
-const page = (props: Props) => {
+
+const page = () => {
   return (
     <AllInvoices isDashboard={true}/>
   )

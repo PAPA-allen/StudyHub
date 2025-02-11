@@ -25,7 +25,7 @@ const SidebarProfile: FC<Props> = ({ user, avatar, active, logoutHandler, setAct
                   height={20}
                   className="w-[20px] h-[20px] md:w-[30px] md:h-[30px] cursor-pointer rounded-full" />
               <h4 className="pl-2 md:block hidden">
-                  {user?.name}'s Account
+                  {user?.name} &apos; s Account
               </h4>
           </div>
           <div className={`w-full flex items-center px-3 py-4 cursor-pointer shadow-md ${active === 2 ? "bg-gray-200 dark:bg-blue-950" : "transparent"}`} onClick={() => setActive(2)}>

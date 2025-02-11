@@ -2,10 +2,7 @@
 import Team from '@/app/components/Admin/Users/Team'
 import React, { FC } from 'react'
 
-type Props = {
-}
-
-const page:FC<Props> = () => {
+const page = () => {
   return (
       <Team isTeam={true} />
   )

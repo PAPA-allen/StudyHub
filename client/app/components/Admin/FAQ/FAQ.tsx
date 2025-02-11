@@ -30,7 +30,7 @@ const EditFAQ = (props: Props) => {
         toast.error(errorData?.data?.message);
       }
     }
-  }, [data, isSuccess, error]);
+  }, [data, isSuccess, error, refetch]);
 
   const toggleQuestion = (id: string) => {
     setQuestions((prev) =>

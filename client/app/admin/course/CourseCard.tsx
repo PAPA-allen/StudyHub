@@ -1,10 +1,9 @@
 import Ratings from '@/app/utils/Ratings';
-import { Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
-import CourseData from '../../components/Admin/Course/CourseData';
+
 
 type Props = {
     item: any;
@@ -19,7 +18,7 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
                 {/* Image Section */}
                 <div className="relative w-full h-40 md:h-48">
                     <Image 
-                        src={item.thumbnail.url} 
+                        src={item.thumbnail?.url} 
                         width={500} 
                         height={300} 
                         alt={item.name || 'Course Thumbnail'}

@@ -9,6 +9,7 @@ import orderRouter from "./routes/order.route";
 import notificationRoute from "./routes/notification.route";
 import analyticsRouter from "./routes/analytics.route";
 import layoutRouter from "./routes/layout.route";
+import { rateLimit } from 'express-rate-limit'
 //body parser
 const app = express();
 
@@ -25,6 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+	// store: ... , // Redis, Memcached, etc. See below.
+})
 // //testing api
 // app.get("/", (req:Request, res:Response) => {
 //     res.status(200).json({
@@ -41,6 +49,9 @@ app.all("*", (req: Request, res: Response, next:NextFunction) => {
     error.statusCode = 404;
     next(error)
 })
+
+//middleware course
+app.use(limiter);
 
 //error middleware
 app.use(ErrorMiddleware);

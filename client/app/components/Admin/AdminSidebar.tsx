@@ -164,7 +164,7 @@ const AdminSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
           <div className="absolute top-0 left-0 w-2/3 h-full dark:bg-gray-900 p-4">
             <div className="flex justify-between items-center">
               <div className="ml-auto mr-auto">
-              <img
+              <Image
                 alt="profile-user"
                 src={user?.avatar ? user?.avatar.url : Default}
                 height={50}

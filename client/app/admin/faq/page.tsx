@@ -1,9 +1,8 @@
 import FAQ from '@/app/components/Admin/FAQ/FAQ'
 import React from 'react'
 
-type Props = {}
 
-const page = (props: Props) => {
+const page = () => {
   return (
    <FAQ/>
   )

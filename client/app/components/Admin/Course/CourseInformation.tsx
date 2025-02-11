@@ -1,5 +1,6 @@
 import { useGetHeroDataQuery } from '@/redux/features/layout/layoutApi';
-import React, { FC, useEffect, useState } from 'react'
+import Image from 'next/image';
+import React, { FC, useEffect, useState, } from 'react'
 
 type Props = {
     courseInfo: any;
@@ -158,7 +159,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                             name=""
                             id=""
                             className="block w-full px-4 py-2 mt-1 text-sm placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm resize-none transition duration-200 ease-in-out"
-                            value={courseInfo.category}
+                            value={courseInfo.category}  
                             onChange={(e: any) => setCourseInfo({ ...courseInfo, category: e.target.value })}
                         >
                             <option value="">Select Category</option>
@@ -218,7 +219,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
                         onDrop={handleDrop}>
                         {
                             courseInfo.thumbnail ? (
-                                <img src={courseInfo.thumbnail} alt="" className="max-h-full w-full object-cover" />
+                                <Image src={courseInfo.thumbnail} alt=""  className="max-h-full w-full object-cover" />
                             ) : (
                                 <span>
                                     Drag & Drop or click to browse

@@ -50,7 +50,7 @@ const CourseContentList: FC<Props> = (props) => {
         return (
           <div className={`${!props.isDemo && "border-b pb-4"}`} key={section}>
             <div className="flex justify-between items-center py-3">
-              <h2 className="text-xl font-semibold text-gray-800">{section}</h2>
+              <h2 className="text-xl font-semibold ">{section}</h2>
               <button
                 onClick={() => toggleSection(section)}
                 className="p-2 rounded-full hover:bg-gray-200 transition duration-300"
@@ -62,7 +62,7 @@ const CourseContentList: FC<Props> = (props) => {
                 )}
               </button>
             </div>
-            <h5 className="text-sm text-gray-600">
+            <h5 className="text-sm">
               {sectionVideoCount} Lessons {" "}
               {sectionVideoLength < 60 ? sectionVideoLength : sectionContentHours.toFixed(2)}{" "}
               {sectionVideoLength > 60 ? "Hours" : "Minutes"}
@@ -75,7 +75,7 @@ const CourseContentList: FC<Props> = (props) => {
                   const contentLength: number = item.videoLength / 60;
                   return (
                     <div
-                      className={`w-full p-4 cursor-pointer transition-all duration-200 rounded-lg hover:bg-gray-100 ${videoIndex === props.activeVideo ? "bg-gray-800 text-white" : "bg-white"}`}
+                      className={`w-full p-4 cursor-pointer transition-all duration-200 rounded-lg hover:bg-gray-100 ${videoIndex === props.activeVideo ? "dark:text-white" : "bg-transparent"}`}
                       key={item._id}
                       onClick={() => props.isDemo ? null : props?.setActiveVideo(videoIndex)}
                     >

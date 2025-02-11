@@ -12,7 +12,7 @@ const AdminDashboard: FC<Props> = ({ isDashboard }) => {
       <div>
           {
               isDashboard && (
-                  <DashboardWidgets open={open}/>
+                  <DashboardWidgets open={open} />
               )
           }
     </div>

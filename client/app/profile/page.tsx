@@ -7,15 +7,12 @@ import Profile from '../components/Profile/Profile';
 import Heading from '../utils/Heading';
 import { useSelector } from 'react-redux';
 
-type Props = {
-    activeItem: number;
 
-}
 
-const page: FC<Props> = () => {
+const Page = () => {
     const [open, setOpen] = useState(false);
     const [activeItem, setActiveItem] = useState(5);
-    const [route, setRoute] = useState("Login")
+    const [route, setRoute] = useState("login")
     const {user}=useSelector((state:any)=>state.auth)
   return (
       <div>
@@ -37,4 +34,4 @@ const page: FC<Props> = () => {
   )
 }
 
-export default page;
+export default Page;

@@ -21,7 +21,6 @@ export const createorder = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { courseId, payment_info } = req.body as IOrder;
-
       if (payment_info) {
         if ("reference" in payment_info) {
           const paymentReference = payment_info.reference;
@@ -29,7 +28,6 @@ export const createorder = CatchAsyncError(
           // Verify the payment via Paystack using the reference
           const paymentVerification = await paystackInstance.transaction.verify(paymentReference);
 
-          console.log("see",paymentVerification);
           if (paymentVerification.status !== "success") {
             return next(new ErrorHandler("Payment not authorized", 400));
           }
@@ -99,7 +97,7 @@ export const createorder = CatchAsyncError(
         message: `You have a new order from ${course?.name}`,
       });
 
-      course.purchased ? (course.purchased += 1) : course.purchased;
+      course.purchased = (course.purchased || 0) + 1;
 
       await course.save();
 
@@ -145,6 +143,7 @@ export const newPayment = CatchAsyncError(async (req:Request, res:Response, next
       res.status(201).json({
         success: true,
         authorization_url: response.data.authorization_url, 
+        payment_refrence:response.message,
       });
     } else {
       res.status(500).json({

@@ -2,9 +2,9 @@
 import AllUsers from '@/app/components/Admin/Users/AllUsers'
 import React from 'react'
 
-type Props = {}
 
-const page = (props: Props) => {
+
+const page = () => {
   return (
     <AllUsers/>
   )

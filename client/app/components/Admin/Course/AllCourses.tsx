@@ -17,7 +17,6 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog"
-import { useDeleteUserMutation } from '@/redux/features/user/userApi';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
@@ -103,7 +102,7 @@ const AllCourses = (props: Props) => {
         toast.error(errorData?.data?.message);
       }
     }
-  },[])
+  },[deleteSuccess, error])
 
   const theme = createTheme({
     palette: {

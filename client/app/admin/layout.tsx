@@ -1,6 +1,5 @@
 "use client";
 
-import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
@@ -13,7 +12,7 @@ import { ModeToggle } from "../utils/mode-toggle";
 import AdminProtected from "../hooks/useProtected";
 import Heading from "../utils/Heading";
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   // State for managing the dropdown visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 

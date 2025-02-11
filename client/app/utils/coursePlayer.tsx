@@ -6,7 +6,7 @@ type Props = {
     title: string;
 }
 
-const coursePlayer: FC<Props> = ({ videoUrl, title }) => {
+const CoursePlayer: FC<Props> = ({ videoUrl, title }) => {
     const [videoData, setVideoData] = useState({
         otp: "",
         playbackInfo: ""
@@ -20,7 +20,7 @@ const coursePlayer: FC<Props> = ({ videoUrl, title }) => {
         })
     },[videoUrl])
   return (
-      <div style={{ paddingTop: "41%", position: "relative" }}>
+      <div style={{ paddingTop: "41%", position: "relative" }} >
           {
               videoData.otp && videoData.playbackInfo !== "" && (
                   <iframe
@@ -34,7 +34,8 @@ const coursePlayer: FC<Props> = ({ videoUrl, title }) => {
                           left:0,
                       }}
                       allowFullScreen={true}
-                  allow="encrypted-media">
+                      allow="encrypted-media"
+                      >
                       
                   </iframe>
               )
@@ -43,4 +44,4 @@ const coursePlayer: FC<Props> = ({ videoUrl, title }) => {
   )
 }
 
-export default coursePlayer
+export default CoursePlayer

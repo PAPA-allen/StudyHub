@@ -7,21 +7,17 @@ import React, { useEffect, useState } from 'react'
 import Header from '../Header';
 import CourseDetails from './CourseDetails';
 import Footer from '../route/Footer';
-import { useCreatePaymentIntentMutation, useGetPaystackPublishableKeyQuery } from '@/redux/features/orders/ordersApi';
 
 
 type Props = {
     id: string
 }
+
 const CourseDetailsPage = ({ id }: Props) => {
     const [route, setRoute] = useState("Login");
     const [open, setOpen] = useState(false);
     const { data, isLoading } = useGetCourseDetailsQuery(id);
-    const { data: config } = useGetPaystackPublishableKeyQuery({});;
-    const [clientSecret, setClientSecret] = useState('');
-    const [createPaymentIntent, { data: paymentIntentData }] = useCreatePaymentIntentMutation();
 
-  
     return (
         <>
             {
@@ -40,15 +36,10 @@ const CourseDetailsPage = ({ id }: Props) => {
                             setOpen={setOpen}
                             activeItem={1} />
                    
-                       
-                                <CourseDetails
-                                        data={data.course}  />
-                         
+                        <CourseDetails
+                            data={data.course}
+                        />
                     
-
-
-
-
                         <Footer />
                     </div>
                 )
@@ -57,4 +48,4 @@ const CourseDetailsPage = ({ id }: Props) => {
     )
 }
 
-export default CourseDetailsPage
+export default CourseDetailsPage;

@@ -1,5 +1,6 @@
 "use client";
 import { useEditLayoutMutation, useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
+import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { toast } from "sonner";
@@ -42,7 +43,7 @@ const EditHero: FC<Props> = () => {
         toast.error(errorData?.data?.message)
       }
     }
-  }, [data, isSuccess, error]);
+  }, [data, isSuccess, error, refetch]);
 
   const handleUpdate = (e: any) => {
     const file = e.target.files?.[0];
@@ -62,7 +63,7 @@ const EditHero: FC<Props> = () => {
       <div className="w-full flex flex-col md:flex-row items-center justify-between p-4 mt-7">
         {/* Left - Image Section */}
         <div className="relative w-full md:w-[30%] mb-4 md:mb-0">
-          <img
+          <Image
             src={image || fallbackImage}
             alt="Hero Image"
             className=" w-full h-[300px] md:h-[500px] rounded-lg shadow-lg"

@@ -2,12 +2,12 @@
 import EditCategories from '@/app/components/Admin/EditCategories/EditCategories'
 import React from 'react'
 
-type Props = {}
 
-const page = (props: Props) => {
+
+const page = () => {
   return (
     <EditCategories/>
   )
 }
 
-export default page
+export default page;

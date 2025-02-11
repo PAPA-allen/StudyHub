@@ -33,7 +33,7 @@ const CreateCourse: FC<Props> = () => {
         estimatedPrice: "",
         tags: "",
         level: "",
-        categories: "",
+        category: "",
         demoUrl: "",
         thumbnail: "",
     });
